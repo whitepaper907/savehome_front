@@ -23,10 +23,11 @@ function registerHandler() {
     register(
         { userId: id.value, userPw: pw.value, userName: name.value, email: email.value },
         ({ res }) => {
-            console.log(res)
+            alert("회원가입 성공")
             router.push({name:'home'})
         },
         (err) => {
+            alert("회원가입 실패")
             console.log(err)
         }
     )

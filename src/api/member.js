@@ -1,13 +1,14 @@
-import { localAxios } from "@/utils/http-commons";
+import { localAxios, loginAxios } from "@/utils/http-commons";
 
 const local = localAxios;
+const loginA = loginAxios;
 
 function register(param, success, fail) {
   local.post('/member/join', param).then(success).catch(fail);
 }
 
 function login(param, success, fail) {
-  local.post('/member/login', param).then(success).catch(fail);
+  loginA.post('/member/login', param).then(success).catch(fail);
 }
 
 function validateLogin(param, success, fail) {

@@ -9,4 +9,11 @@ const localAxios = axios.create({
   }
 })
 
-export {localAxios}
+const loginAxios = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+  headers: {
+    'Content-Type' : 'multipart/form-data'
+  }
+})
+
+export {localAxios, loginAxios}

@@ -12,8 +12,12 @@ emit('updateUserId')
 
 function loginHandler() {
     //server에 login요청 처리 후...
+    const formData = new FormData()
+    formData.append('username', id.value)
+    formData.append('password', pw.value)
+
     login(
-        { user_id: id.value, user_password: pw.value },
+        formData,
         ({ data }) => {
         if (data.user_id === id.value) {
             sessionStorage.setItem('user_id', id.value)
@@ -28,6 +32,7 @@ function loginHandler() {
         },
         (err) => {
             console.log(err)
+            alert('다시 로그인 해주세요!')
         }
     )
 }
@@ -65,7 +70,7 @@ function kakaoLoginHandler() {
                       <!-- To make this form functional, sign up at-->
                       <!-- https://startbootstrap.com/solution/contact-forms-->
                       <!-- to get an API token!-->
-                      <form id="loginForm" @submit.prevent="">
+                      <form id="loginForm" @submit.prevent="loginHandler">
                           <!-- Name input-->
                           <div class="form-floating mb-3">
                               <input class="form-control" id="mid" type="text" placeholder="아이디" v-model="id"/>
@@ -79,7 +84,7 @@ function kakaoLoginHandler() {
                           </div>
                           
                           <!-- Submit Button-->
-                          <div class="d-grid"><button class="btn btn-primary btn-lg" id="loginBtn" type="button" @click="loginHandler">로그인</button></div>
+                          <div class="d-grid"><button class="btn btn-primary btn-lg" id="loginBtn" type="submit">로그인</button></div>
                           <!-- Reset Password Button-->
                           <div><button class="btn btn-link" id="resetPwBtn" type="button">비밀번호를 잊어버리셨나요?</button></div>
                           <div class="social-sign-in">
