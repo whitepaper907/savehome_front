@@ -1,7 +1,9 @@
 <script setup>
 import { register } from '@/api/member.js';
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const id = ref('');
 const pw = ref('');
 const email = ref('');
@@ -19,9 +21,10 @@ function registerHandler() {
     }
 
     register(
-        { user_id: id.value, user_pw: pw.value, user_name: name.value, email: email.value },
+        { userId: id.value, userPw: pw.value, userName: name.value, email: email.value },
         ({ res }) => {
             console.log(res)
+            router.push({name:'home'})
         },
         (err) => {
             console.log(err)

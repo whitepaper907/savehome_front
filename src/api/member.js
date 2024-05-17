@@ -3,7 +3,7 @@ import { localAxios } from "@/utils/http-commons";
 const local = localAxios;
 
 function register(param, success, fail) {
-  local.post('/member/register', param).then(success).catch(fail);
+  local.post('/member/join', param).then(success).catch(fail);
 }
 
 function login(param, success, fail) {
