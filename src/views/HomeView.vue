@@ -4,12 +4,28 @@ const coordinate = {
   lat: 37.566826,
   lng: 126.9786567
 };
+
+import { localAxios } from "@/utils/http-commons";
+
+// function testHandler() {
+//   localAxios.post('/member/test', {})
+//     .then(console.log('test success'))
+//     .catch((err) => {
+//       console.log('test fail')
+//     })
+// }
+
 </script>
 <template>
   <main>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Header-->
+            <!-- <div class="badge bg-gradient-primary-to-secondary text-white mb-7">
+                      <div class="text-uppercase">
+                        <button class="nav-link" id = "apart" @click="testHandler">test</button>
+                      </div>
+                    </div> -->
             <header class="py-5">
                 <div class="container px-5 pb-5">
                     <div class="row gx-5 align-items-center">

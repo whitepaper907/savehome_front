@@ -1,4 +1,5 @@
 <script setup>
+import { RouterView } from 'vue-router'
 
 </script>
 
@@ -17,7 +18,8 @@
                 </div>
             </div>
         </header>
-        <div class="container px-5 pb-5">
+        <RouterView></RouterView>
+        <!-- <div class="container px-5 pb-5">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
@@ -39,7 +41,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

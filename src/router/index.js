@@ -40,18 +40,20 @@ const router = createRouter({
       path: '/board',
       name: 'board',
       component: () => import('@/views/BoardView.vue'),
+      redirect: { name: 'article-list' },
+      children: [
+        {
+          path: '/list',
+          name: 'article-list',
+          component: () => import('@/components/board/BoardList.vue')
+        }
+      ],
       beforeEnter: (to, from) => {
-        validateLogin(
-          { user_id: sessionStorage.getItem('user_id'), user_name:sessionStorage.getItem('user_name'), access_token: sessionStorage.getItem('access_token'), refresh_token: sessionStorage.getItem('refresh_token') },
-          ({ data }) => {
-            sessionStorage.setItem('access_token', data.access_token)
-            sessionStorage.setItem('refresh_token', data.refresh_token)
-          },
-          (err) => {
-            sessionStorage.clear()
-            router.push({ name: 'login' })
-          }
-        )
+        if (!sessionStorage.getItem('user_id')){
+          console.log('로그인 필요')
+          alert('로그인부터 해주세요')
+          return { name: 'login' }
+        }
       }
     }
     

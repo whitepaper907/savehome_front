@@ -1,14 +1,18 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Navbar from '@/components/layout/HeadingNavbar.vue'
 import CustomFooter from '@/components/layout/Footer.vue'
+import { setEventBus } from '@/utils/eventBus.js'
 
 let userId = ref(sessionStorage.getItem('user_id'))
 
 function updateUserId() {
   userId.value = sessionStorage.getItem('user_id');
 }
+
+setEventBus({ updateUserId });
+
 </script>
 
 <template>
