@@ -50,8 +50,7 @@ const router = createRouter({
       ],
       beforeEnter: (to, from) => {
         if (!sessionStorage.getItem('user_id')){
-          console.log('로그인 필요')
-          alert('로그인부터 해주세요')
+          alert('로그인이 필요합니다.')
           return { name: 'login' }
         }
       }
