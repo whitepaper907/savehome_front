@@ -1,28 +1,28 @@
 <script setup>
-import { getKakaoToken } from '@/api/member.js'
+import { getUserInfo } from "@/api/member";
 import { onMounted } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 const emit = defineEmits(["updateUserId"])
 const router = useRouter()
 
 onMounted(() => {
-  const code = new URLSearchParams(window.location.search).get('code')
-
-  getKakaoToken(
-    { code: code },
-    ({ data }) => {
-      console.log(data)
-      console.log(data.id)
-      sessionStorage.setItem('user_id', data.id)
+  getUserInfo(
+    (res) => {
+      console.log(res.data)
+      sessionStorage.setItem("user_id",res.data.user_id)
+      sessionStorage.setItem("user_name",res.data.user_name)
       emit('updateUserId')
-      router.push({ name: 'home' })
+      router.push({name:'home'})
     },
-    ({ err }) => {
+    (err) => {
       console.log(err)
-    }
-  )
+      sessionStorage.clear()
+      alert("다시 로그인해주세요.")
+      router.push({ name:'login'})
+    })
 })
+
 </script>
 
 <template>

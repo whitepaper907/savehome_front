@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { login, loginKakao } from '@/api/member.js'
+import { getUserInfo, login } from '@/api/member.js'
 import { useRouter } from 'vue-router'
 
 const emit = defineEmits(["updateUserId"])
@@ -18,17 +18,25 @@ function loginHandler() {
 
     login(
         formData,
-        ({ data }) => {
-        if (data.user_id === id.value) {
-            sessionStorage.setItem('user_id', id.value)
-            sessionStorage.setItem('user_name', data.user_name)
-            sessionStorage.setItem('access_token', data.access_token)
-            sessionStorage.setItem('refresh_token', data.refresh_token)
-            emit('updateUserId')
-            router.push({ name: 'home' })
-        } else {
-            alert('다시 로그인 해주세요!')
-        }
+        () => {
+            getUserInfo(
+                (res) => {
+                    if (res.data.user_id === id.value) {
+                        sessionStorage.setItem('user_id', id.value)
+                        sessionStorage.setItem('user_name', res.data.user_name)
+                        emit('updateUserId')
+                        router.push({ name: 'home' })
+                    } else {
+                        sessionStorage.clear()
+                        alert('다시 로그인 해주세요!')
+                    }
+                },
+                (err) => {
+                    console.log(err)
+                    sessionStorage.clear()
+                    alert("다시 로그인해주세요.")
+                }
+            )
         },
         (err) => {
             console.log(err)
@@ -38,17 +46,9 @@ function loginHandler() {
 }
 
 function kakaoLoginHandler() {
-    loginKakao(
-        {},
-        ({ data }) => {
-            console.log(data.authorization_uri)
-            window.location.href = data.authorization_uri
-        },
-        (err) => {
-            console.log(err)
-        }
-    )
+    window.location.href = "http://localhost/oauth2/authorization/kakao"
 }
+
 </script>
 
 <template>

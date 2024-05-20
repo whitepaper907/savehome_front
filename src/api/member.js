@@ -19,15 +19,16 @@ function logout(param, success, fail) {
   local.post('/member/logout', param).then(success).catch(fail);
 }
 
-function loginKakao(param, success, fail) {
-  local.get('/member/login/kakao', param).then(success).catch(fail);
-}
-
 function getKakaoToken(param, success, fail) {
   local.post('/member/login/kakao', param).then(success).catch(fail);
 }
 
+function getUserInfo(success, fail) {
+  local.get('/member/info')
+    .then(success)
+    .catch(fail)
+}
 
 export {
-  register, login, validateLogin, logout, loginKakao, getKakaoToken
+  getUserInfo, register, login, validateLogin, logout, getKakaoToken
 }

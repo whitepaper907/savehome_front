@@ -3,6 +3,7 @@ import { onMounted, ref } from "vue";
 import { listArticle } from "@/api/board.js"
 import { useRouter } from "vue-router";
 import { useLoading } from 'vue-loading-overlay'
+const { VITE_EXPIRED_REFRESH_TOKEN } = import.meta.env
 
 const $loading = useLoading({
 })
@@ -26,16 +27,25 @@ function getArticleList() {
 
   listArticle(
     params,
-    ({ data }) => {
-      // articles.value = data
+    (res) => {
+      console.log(res)
       console.log("getArticleList success")
       loader.hide()
     },
     (err) => {
       console.log("getArticleList err >>", err)
-      alert("로그인이 필요합니다.")
       loader.hide()
-      router.push({ name: 'login' })
+
+      if (err == VITE_EXPIRED_REFRESH_TOKEN) {
+        alert("로그인이 필요합니다.")
+        sessionStorage.clear()
+        router.push({name:'login'})
+      }
+      else {
+        alert("에러 발생")
+        router.push({ name: 'home' })
+      }
+      
     }
   )
 }
