@@ -1,19 +1,25 @@
 <script setup>
 import { KakaoMap, KakaoMapMarker } from 'vue3-kakao-maps';
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+import ChatRoom from "@/components/chat/ChatRoom.vue";
+
 const coordinate = {
   lat: 37.566826,
   lng: 126.9786567
 };
 
-import { localAxios } from "@/utils/http-commons";
+const router = useRouter();
+const chatVisible = ref(false);
 
-// function testHandler() {
-//   localAxios.post('/member/test', {})
-//     .then(console.log('test success'))
-//     .catch((err) => {
-//       console.log('test fail')
-//     })
-// }
+function chatRoomHandler() {
+  if (!sessionStorage.getItem("user_id")) {
+    alert("로그인이 필요합니다.")
+    router.push({ name: 'login' });
+    return
+  }
+  chatVisible.value = !chatVisible.value
+}
 
 </script>
 <template>
@@ -32,7 +38,6 @@ import { localAxios } from "@/utils/http-commons";
                         <div class="col-xxl-5">
                             <!-- Header text content-->
                             <div class="text-center text-xxl-start">
-                    	
                                 <div class="fs-3 fw-light text-muted">당신의 아늑한 집을 찾아드리겠습니다.</div>
                                 <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Let's Find out your Home with me</span></h1>
                             </div>
@@ -63,7 +68,32 @@ import { localAxios } from "@/utils/http-commons";
                 	</div>
                 </div>
             </header>
+            <button class="floating-button" @click="chatRoomHandler">
+              <slot><img src="@/assets/chat_icon.png" width="30px"></slot>
+            </button>
+            <ChatRoom v-if="chatVisible"></ChatRoom>
         </main>
     </body>
   </main>
 </template>
+
+<style>
+.floating-button {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  width: 60px;
+  height: 60px;
+  background-color: #4A2CD9;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 99;
+}
+</style>

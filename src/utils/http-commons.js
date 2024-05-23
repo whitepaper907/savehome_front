@@ -10,6 +10,19 @@ const localAxios = axios.create({
   }
 })
 
+localAxios.interceptors.request.use(
+  (config) => {
+    // 모든 이전 리디렉션 정보를 초기화
+    config.maxRedirects = 0; // 리디렉션을 아예 하지 않도록 설정
+
+    // 여기에 추가적인 설정을 할 수 있습니다.
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 localAxios.interceptors.response.use(
   (res) => {
     return res

@@ -19,7 +19,11 @@ function logout(param, success, fail) {
   local.post('/member/logout', param).then(success).catch(fail);
 }
 
-function getKakaoToken(param, success, fail) {
+function loginKakao(param, success, fail) {
+  local.get('/member/login/kakao', param).then(success).catch(fail);
+}
+
+function getToken(param, success, fail) {
   local.post('/member/login/kakao', param).then(success).catch(fail);
 }
 
@@ -30,5 +34,5 @@ function getUserInfo(success, fail) {
 }
 
 export {
-  getUserInfo, register, login, validateLogin, logout, getKakaoToken
+  getUserInfo, register, login, validateLogin, logout, loginKakao, getToken
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { getUserInfo, login } from '@/api/member.js'
+import { getUserInfo, login, loginKakao } from '@/api/member.js'
 import { useRouter } from 'vue-router'
 
 const emit = defineEmits(["updateUserId"])
@@ -46,7 +46,24 @@ function loginHandler() {
 }
 
 function kakaoLoginHandler() {
+    // oauth (w/spring security)
+    // -- start
     window.location.href = "http://localhost/oauth2/authorization/kakao"
+    // -- end
+
+    // oauth(w/o spring security)
+    // -- start
+    // loginKakao(
+    //     {},
+    //     ({ data }) => {
+    //         console.log(data.authorization_uri)
+    //         window.location.href = data.authorization_uri
+    //     },
+    //     (err) => {
+    //         console.log(err)
+    //     }
+    // )
+    // -- end
 }
 
 </script>
