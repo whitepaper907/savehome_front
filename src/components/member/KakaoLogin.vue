@@ -19,8 +19,8 @@ onMounted(() => {
   // oauth (w/spring security)
   // -- start
   getUserInfo(
-    (res) => {
-      console.log(res.data)
+    () => {
+      // console.log(res.data)
       // sessionStorage.setItem("user_id",res.data.user_id)
       // sessionStorage.setItem("user_name",res.data.user_name)
       loader.hide()
