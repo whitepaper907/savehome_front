@@ -48,7 +48,7 @@ function loginHandler() {
 function kakaoLoginHandler() {
     // oauth (w/spring security)
     // -- start
-    window.location.href = "http://localhost/oauth2/authorization/kakao"
+    window.location.href = "https://savehome.kro.kr/oauth2/authorization/kakao"
     // -- end
 
     // oauth(w/o spring security)
